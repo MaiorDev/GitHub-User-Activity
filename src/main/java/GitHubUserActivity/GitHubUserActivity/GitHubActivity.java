@@ -40,13 +40,12 @@ public class GitHubActivity {
         for (int i = 1; i < Math.min(events.length, 10); i++) {
             String event = events[i];
 
-            // 2. Use Regex to find the "type" and the "repo name"
+    
             String type = findMatch(event, "\"type\":\"(.*?)\"");
             String repoName = findMatch(event, "\"name\":\"(.*?)\"");
 
             if (type == null || repoName == null) continue;
 
-            // 3. Special logic for PushEvents to count commits
             if (type.equals("PushEvent")) {
                 String commitCount = countCommits(event);
                 System.out.println("- Pushed " + commitCount + " commit(s) to " + repoName);
